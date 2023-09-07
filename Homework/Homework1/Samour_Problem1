@@ -1,0 +1,23 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Create array of x values from 1.920 to 2.080 with step 0.001
+x = np.arange(1.920, 2.080, step=0.001)
+
+# i.) p(x) = (x-2)**9 expanded
+p1 = x**9 - 18*(x**8) + 144*(x**7) - 672*(x**6) + 2016*(x**5) - 4032*(x**4) + 5376*(x**3) - 4608*(x**2) + 2304*x - 512
+
+# ii.) p(x) = (x-2)**9
+p2 = (x-2)**9
+
+# Plot both versions
+plt.plot (x, p1)
+plt.plot (x, p2)
+plt.xlabel('x')
+plt.ylabel('p(x)')
+plt.show()
+
+# iii.) The first plot of the expanded form is very sharp and has a lot of jumps,
+# whereas the second plot (in red) of the binomial is very smooth. This discrepancy
+# is due to the machine doing each individual calculation of the x terms for the expansion
+# as opposed to only using one x value for the binomial. 
