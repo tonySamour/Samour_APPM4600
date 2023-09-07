@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 
 # 3.1.1 Vectors
 
+# For Lab 2: Creates vectors
+
 x = [1, 2, 3]
 
 x1 = x*3
@@ -26,9 +28,14 @@ print ('Here is the array y multiplied by 3: ', y1)
 
 # 3.1.3 Plotting
 
+
+# For Lab 2: Creates x vector and y formulas
+
 X =np.linspace(0, 2 * np.pi, 100)
 Ya = np.sin(X)
 Yb = np.cos(X)
+
+# For Lab 2: Plots Ya and Yb against X and shows the plot
 
 plt.plot (X, Ya)
 plt.plot (X, Yb)
@@ -38,6 +45,8 @@ plt.show()
 
 # 3.2 Exercises
 # 3.2.1
+
+# For Lab 2: Creating the same vector using two different commands
 
 x2 = np.linspace(0.0, 1.0, num=11, retstep=False)
 
@@ -55,6 +64,8 @@ print('These are the entries of w: ', w)
 x3 = np.linspace(1.0, len(w), num=len(w))
 
 s = 3*w
+
+# For Lab 2: Creates plot with log scale on axis
 
 plt.semilogx(x3, w)
 plt.semilogx(x3, s)
