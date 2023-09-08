@@ -19,5 +19,7 @@ plt.show()
 
 # iii.) The first plot of the expanded form is very sharp and has a lot of jumps,
 # whereas the second plot (in red) of the binomial is very smooth. This discrepancy
-# is due to the machine doing each individual calculation of the x terms for the expansion
-# as opposed to only using one x value for the binomial. 
+# is due to the machine having to compute the multiple terms, add and subtract them,
+# all while keeping up to four significant figures. This extra computation leads to the
+# loss of accuracy. We can tell that the (x-2)**9 plot is correct because we know that 
+# there is only 1 root at x = 2, whereas the expanded plot has multiple roots.
