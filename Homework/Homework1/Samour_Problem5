@@ -1,0 +1,28 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Problem 5a
+
+x1 = 10**5
+x2 = 10**4
+y = x1 - x2
+
+delx1 = 0.000005
+delx2 = 0.000003
+
+x1pert = x1 + delx1
+x2pert = x2 + delx2
+
+dely = delx1 - delx2
+
+ypert = y + dely
+
+absError = abs(dely-y)
+relError = abs(dely-y)/abs(y)
+
+print ("This is the absolute error: ", absError)
+print ("This is the relative error: ", relError)
+
+# After experimenting with different numbers, I have found that using extreme values
+# yields larger difference in relative vs
+# absolute errors.
