@@ -26,3 +26,18 @@ print ("This is the relative error: ", relError)
 # After experimenting with different numbers, I have found that using extreme values
 # yields larger difference in relative vs
 # absolute errors.
+
+# Problem 5b
+
+x3 = np.pi
+x4 = 10**6
+delx = np.array([10**(-16),10**(-15),10**(-14),10**(-13), 10**(-12), 10**(-11), 10**(-10), 10**(-9), 10**(-8), 10**(-7), 10**(-6), 10**(-5), 10**(-4), 10**(-3), 10**(-2), 10**(-1), 1])
+
+z = (np.cos(x3)*np.cos(delx) - np.sin(x3)*np.sin(delx)) - np.cos(x3)
+z2 = (np.cos(x4)*np.cos(delx) - np.sin(x4)*np.sin(delx)) - np.cos(x4)
+
+plt.semilogx(delx, z)
+plt.semilogx(delx, z2)
+plt.xlabel('x')
+plt.ylabel('y')
+plt.show()
