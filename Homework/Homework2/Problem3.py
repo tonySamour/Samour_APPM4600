@@ -2,7 +2,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 import math
 
-x = 0.0001
+x = 2
+delx = 0.0001
+
+xPert = x + delx
 
 y = math.exp(x)
-print(y - 1)
+yPert = math.exp(xPert)
+
+print("Taking in x value", y - 1)
+print("Taking in perturbed x value", yPert - 1)
