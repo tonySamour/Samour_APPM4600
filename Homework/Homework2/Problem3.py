@@ -17,5 +17,6 @@ print("Taking in perturbed x value", yPert - 1)
 # (c) Take in a small x value. How many correct digits does the algorithm give?
 
 x2 = 9.999999995000000 * 10**-10
+y2 = math.exp(x2)
 
 print("(c) ", y - 1)
