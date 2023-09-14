@@ -4,20 +4,36 @@ import numpy as np
 def driver():
 
 # use routines    
-    f = lambda x: x**3+x-4
-    a = 1
-    b = 4
+    f = lambda x: x**2 * (x - 1)
+    
+# Interval for (a)
+    a1 = 0.5
+    b1 = 2
 
-#    f = lambda x: np.sin(x)
-#    a = 0.1
-#    b = np.pi+0.1
+# Interval for (b)
+    a2 = -1
+    b2 = 0.5
+
+# Interval for (c)
+    a3 = -1
+    b3 = 2
 
     tol = 1e-7
 
-    [astar,ier] = bisection(f,a,b,tol)
-    print('the approximate root is',astar)
-    print('the error message reads:',ier)
-    print('f(astar) =', f(astar))
+    [astar1,ier1] = bisection(f,a1,b1,tol)
+    print('the approximate root is',astar1)
+    print('the error message reads:',ier1)
+    print('f(astar) =', f(astar1))
+
+    [astar2,ier2] = bisection(f,a2,b2,tol)
+    print('the approximate root is',astar2)
+    print('the error message reads:',ier2)
+    print('f(astar) =', f(astar2))
+
+    [astar3,ier3] = bisection(f,a3,b3,tol)
+    print('the approximate root is',astar3)
+    print('the error message reads:',ier3)
+    print('f(astar) =', f(astar3))
 
 
 
