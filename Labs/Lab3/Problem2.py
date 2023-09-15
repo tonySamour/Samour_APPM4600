@@ -103,3 +103,6 @@ def bisection(f,a,b,tol):
     return [astar, ier]
       
 driver()               
+
+# The behavior is what I expected it to be, but the code was unsuccessful
+# in that it cannot locate roots of multiplicity > 1.
