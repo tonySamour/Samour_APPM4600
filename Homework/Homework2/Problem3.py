@@ -29,3 +29,10 @@ absError = abs(f - (x2 + (x2**2)/2))
 relError = absError/f
 
 print ("(d) Relative error: ", relError)
+
+# (e) Use expm1 to verify results from part (d)
+
+absError2 = abs(np.expm1(x2) - (x2 + (x2**2)/2))
+relError2 = absError2/np.expm1(x2)
+
+print ('(e) Relative error between P_2(x) and expm1(x): ', relError2)
