@@ -1,7 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import math
-import operator
 
 # Create a vector t starting at 0 incrementing by pi/30 to pi
 t = np.linspace(0, np.pi, num = 31)
