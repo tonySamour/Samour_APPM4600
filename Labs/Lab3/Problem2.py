@@ -25,21 +25,21 @@ def driver():
     # tolerance for how close we should get to the root
     tol = 10e-5
 
-    # Problem 1 (a)
+    # Problem 2 (a)
     [astar1,ier1] = bisection(f1,a1,b1,tol)
     print('\nProblem 1 (a)')
     print(' the approximate root is',astar1)
     print(' the error message reads:',ier1)
     print(' f(astar) =', f1(astar1))
 
-    # Problem 1 (b)
+    # Problem 2 (b)
     [astar2,ier2] = bisection(f2,a2,b2,tol)
     print('\nProblem 1 (b)')
     print(' the approximate root is',astar2)
     print(' the error message reads:',ier2)
     print(' f(astar) =', f2(astar2))
 
-    # Problem 1 (c)
+    # Problem 2 (c)
     [astar3,ier3] = bisection(f3,a3,b3,tol)
     print('\nProblem 1 (c)')
     print(' the approximate root is',astar3)
