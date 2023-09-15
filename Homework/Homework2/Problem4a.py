@@ -17,7 +17,7 @@ k = 0
 N = len(t)
 
 while k< N:
-    S = S + operator.add(0, t[k] * y[k])
+    S = S + t[k] * y[k]
     k = k + 1
 
 # Print statement to show the value of S
