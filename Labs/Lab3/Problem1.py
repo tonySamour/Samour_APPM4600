@@ -101,3 +101,6 @@ def bisection(f,a,b,tol):
       
 driver()               
 
+# The first and third intervals are succesful because they surround
+# the root x=1. It is not possible for the bisection method to find 
+# the root x=0 because it is on a vertex with multiplicity 2.
