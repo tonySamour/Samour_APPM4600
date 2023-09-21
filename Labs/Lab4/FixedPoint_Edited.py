@@ -16,17 +16,20 @@ def driver():
      Nmax = 100
      tol = 10e-10
 
+     Nmax = 100
+     tol = 1e-6
+
 # test f1 '''
      x0 = 0.0
      [xstar,ier] = fixedpt(f1,x0,tol,Nmax)
-     print('\nthe approximate fixed point is:',xstar)
+     print('the approximate fixed point is:',xstar)
      print('f1(xstar):',f1(xstar))
      print('Error message reads:',ier)
     
 #test f2 '''
      x0 = 0.0
      [xstar,ier] = fixedpt(f2,x0,tol,Nmax)
-     print('\nthe approximate fixed point is:',xstar)
+     print('the approximate fixed point is:',xstar)
      print('f2(xstar):',f2(xstar))
      print('Error message reads:',ier)
 
@@ -43,8 +46,6 @@ def driver():
      if lambda_ < 1:
          print(lambda_, 'The order of convergence is linear')
          return
-     
-         
 
 # define routines
 def fixedpt(f,x0,tol,Nmax):
@@ -54,30 +55,18 @@ def fixedpt(f,x0,tol,Nmax):
     ''' tol = stopping tolerance'''
 
     count = 0
-    iterations = np.zeros((Nmax,1))
     while (count <Nmax):
-       iterations[count] = x0
        count = count +1
        x1 = f(x0)
-
        if (abs(x1-x0) <tol):
           xstar = x1
           ier = 0
-          print(iterations)
           return [xstar,ier]
        x0 = x1
 
     xstar = x1
     ier = 1
-
-    """ e_top = abs(iterations[count + 1]-xstar)
-    e_bottom = abs(iterations [count] - xstar)
-    lambda_ = e_top/e_bottom
-    print (lambda_)
-    if lambda_ < 1:
-        print ('The convergence is linear') """
     return [xstar, ier]
     
-     
 
 driver()
