@@ -59,6 +59,7 @@ def fixedpt(f,x0,tol,Nmax):
        iterations[count] = x0
        count = count +1
        x1 = f(x0)
+
        if (abs(x1-x0) <tol):
           xstar = x1
           ier = 0
@@ -66,10 +67,17 @@ def fixedpt(f,x0,tol,Nmax):
           return [xstar,ier]
        x0 = x1
 
-
     xstar = x1
     ier = 1
+
+    """ e_top = abs(iterations[count + 1]-xstar)
+    e_bottom = abs(iterations [count] - xstar)
+    lambda_ = e_top/e_bottom
+    print (lambda_)
+    if lambda_ < 1:
+        print ('The convergence is linear') """
     return [xstar, ier]
     
+     
 
 driver()
