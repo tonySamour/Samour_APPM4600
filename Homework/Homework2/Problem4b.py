@@ -38,8 +38,8 @@ def driver2():
         theta = np.linspace(0, 2*np.pi, num = 1001)
         
         # Assign values to variables given in problem
-        R = 1.2
-        delr = 0.1
+        R = i
+        delr = 0.05
         f = 2 + i
         p = random.uniform(0, 2)
 
@@ -51,10 +51,10 @@ def driver2():
         # Parametric Plotting Code adapted from Brown Python Tutorial: https://www.cfm.brown.edu/people/dobrush/am33/python/?/p1/parametric.html
 
 
-        plt.plot(x, y, 'b-', linewidth=1)
+        plt.plot(x, y, linewidth=1)
 
-        plt.xlim(-2, 2)
-        plt.ylim(-2, 2)
+        plt.xlim(-15, 15)
+        plt.ylim(-15, 15)
         plt.gca().set_aspect('equal', adjustable='box')
     
     # Plot all at once
