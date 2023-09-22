@@ -40,7 +40,7 @@ def driver():
      print('f3(xstar):',f3(xstar))
      print('Error message reads:',ier)
 
-#Given f(x), find the first derivative f'(x) by hand
+     #Given f(x), find the first derivative f'(x) by hand
      f3_prime = lambda x: -(10**(1/2)/(2*(x+4)**(3/2)))
      lambda_ = abs(f3_prime(1.36523001))
      if lambda_ < 1:
