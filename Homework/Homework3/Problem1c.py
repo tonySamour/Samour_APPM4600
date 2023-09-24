@@ -4,15 +4,11 @@ import numpy as np
 def driver():
 
 # use routines    
-    f = lambda x: x**3+x-4
-    a = 1
-    b = 4
+    f = lambda x: 2*x - 1 - np.sin(x)
+    a = -np.pi/2
+    b = np.pi/2
 
-#    f = lambda x: np.sin(x)
-#    a = 0.1
-#    b = np.pi+0.1
-
-    tol = 1e-7
+    tol = 1e-8
 
     [astar,ier] = bisection(f,a,b,tol)
     print('the approximate root is',astar)
@@ -70,8 +66,8 @@ def bisection(f,a,b,tol):
         fa = fd
       d = 0.5*(a+b)
       count = count +1
-#      print('abs(d-a) = ', abs(d-a))
-      
+    print('abs(d-a) = ', abs(d-a))
+    print('Number of iterations: ', count)  
     astar = d
     ier = 0
     return [astar, ier]
