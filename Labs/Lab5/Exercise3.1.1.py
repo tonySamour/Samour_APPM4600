@@ -14,6 +14,16 @@ def driver():
   tol = 1.e-14
 
   (p,pstar,info,it) = newton(f,fp,p0,tol, Nmax)
+  
+  if (abs(fp(pstar)) > 0 and abs(fp(pstar)) < 1):
+     print('Converges linearly with rate of convergence: ', abs(fp))
+  
+  if (abs(fp(pstar)) == 0):
+     print('Converges at least quadratically')
+
+  if (abs(fp(pstar)) > 1):
+     print('Will never converge')
+  
   print('the approximate root is', '%16.16e' % pstar)
   print('the error message reads:', '%d' % info)
   print('Number of iterations:', '%d' % it)
