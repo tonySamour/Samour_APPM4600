@@ -8,7 +8,7 @@ def driver():
 
   f = lambda x: np.exp(3*x)-27*(x**6)+27*(x**4)*np.exp(x) - 9*(x**2)*np.exp(2*x)
   fp = lambda x: 3*np.exp(3*x)- 6*27*x**5 + 27*((4*x**3)*(np.exp(x))+(x**4)*(np.exp(x)))-9*((2*x)*(np.exp(2*x))+ (2*x**2)*(np.exp(2*x)))
-  p0 = 3
+  p0 = 4
 
   Nmax = 100
   tol = 1.e-14
