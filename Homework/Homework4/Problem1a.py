@@ -15,25 +15,15 @@ def driver():
 # Define the first derivative of the temperature function
     #Tp = lambda x: (x-2)*(x-5)*np.exp(x)+(2*x-7)*np.exp(x) 
 
-    x = np.arange(0, 1.00, step=0.001)
+    x = np.arange(0, 5.00, step=0.001)
     T_x = T(x)
 
-    x_ = []
-    count = 0
 
-    while (count < len(x)):
-        if (T_x >= 0):
-            x_ = x_.append(x[count])
-            count +=1
-
-    # Function defined over positive values
-    T_x_ = T(x_)
-
-    plt.plot (x_, T_x_)
+    plt.plot (x, T_x)
     plt.xlabel('x in meters')
     plt.ylabel('T(x) at t = 60 Days')
-    plt.xlim(-10, 10)
-    plt.ylim(-20, 20)
+    plt.xlim(0, 5)
+    plt.ylim(-15, 20)
     
     plt.show()
 
