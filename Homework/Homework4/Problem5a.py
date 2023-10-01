@@ -16,11 +16,13 @@ def driver():
   tol = 1.e-14
 
   (p,pstar,info,it) = newton(f,fp,p0,tol, Nmax)
+  print('Newtons Method:')
   print('the approximate root is', '%16.16e' % pstar)
   print('the error message reads:', '%d' % info)
-  print('Number of iterations:', '%d' % it)
+  print('Number of iterations:', '%d' % it, '\n')
 
   (p,pstar,info,it) = secant(f,p0,p1,tol, Nmax)
+  print('Secant Method:')
   print('the approximate root is', '%16.16e' % pstar)
   print('the error message reads:', '%d' % info)
   print('Number of iterations:', '%d' % it)
