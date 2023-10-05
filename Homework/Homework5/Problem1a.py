@@ -17,14 +17,14 @@ def driver():
 # test f1 '''
     x0 = 1.0
     y0 = 1.0
-    [xstar,ier] = fixedpt(f,g, x0, y0, J, tol,Nmax)
+    [xstar,ier] = fixedpt(f,g,x0,y0,J,tol,Nmax)
     print('the approximate fixed point is:',xstar)
-    print('f1(xstar):',f1(xstar))
+    print('f(xstar):',f(xstar))
     print('Error message reads:',ier)
 
 
 # define routines
-def fixedpt(f, g, x0, y0, J, tol,Nmax):
+def fixedpt(f,g,x0,y0,J,tol,Nmax):
 
     ''' x0 = initial guess''' 
     ''' Nmax = max number of iterations'''
@@ -32,18 +32,20 @@ def fixedpt(f, g, x0, y0, J, tol,Nmax):
 
     Xn = [[x0], 
           [y0]]
-    
+    F  = [[f(x0, y0)],
+          [g(x0, y0)]]
+
     count = 0
 
-    if (LA.norm(Xn -f(Xn[1], Xn[2]))==0):
+    if (LA.norm(Xn - F[0][1])==0):
         xstar = Xn
         ier = 0
         return
     
     while (count <Nmax):
        count = count +1
-       x1 = Xn - J* [[f(Xn[1],Xn[2])],
-                     [g(Xn[1],Xn[2])]]
+       x1 = Xn - J* [[f(Xn[0][0],Xn[1][0])],
+                     [g(Xn[0][0],Xn[1][0])]]
        
        if (LA.norm(x1 - Xn) <tol):
           xstar = x1
