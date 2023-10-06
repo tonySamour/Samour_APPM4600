@@ -4,6 +4,14 @@ import time
 from numpy.linalg import inv 
 from numpy.linalg import norm 
 
+'''During Lab, Erin and Will did not get their codes working quite right, so I was unable to
+   compare my code directly to theirs. It seems like all of my codes are running pretty well,
+   but it is hard to tell if they are working properly.'''
+
+'''For the finite difference approach for the Slacker Newton method, it seemed like using 
+   smaller step sizes for h helped to provide more accuracy for the Jacobian, resulting in less
+   Jacobians calculated using this method.'''
+
 def driver():
 
     x0 = np.array([1.0, 0.0])
