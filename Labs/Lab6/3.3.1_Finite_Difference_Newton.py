@@ -37,7 +37,6 @@ def evalJ(x,h):
                   [((x[0] + h) + (x[1]) - np.sin((x[0] + h) - (x[1])) - ((x[0]) + (x[1]) - np.sin((x[0]) - (x[1]))))/h, ((x[0]) + (x[1] + h) - np.sin((x[0]) - (x[1] + h)) - ((x[0]) + (x[1]) - np.sin((x[0]) - (x[1]))))/h]])
     return J
 
-
 def Newton(x0,tol,Nmax, h):
 
     ''' inputs: x0 = initial guess, tol = tolerance, Nmax = max its'''
