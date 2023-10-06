@@ -16,9 +16,9 @@ def driver():
       [xstar,ier,its] =  Newton(x0,tol,Nmax)
     elapsed = time.time()-t
     print(xstar)
-    print('inter','Newton: the error message reads:',ier)
-    print('real','Newton: took this many seconds:',elapsed/50)
-    print('inter','Netwon: number of iterations is:',its)
+    print('Newton: the error message reads:',ier)
+    print('Newton: took this many seconds:',elapsed/50)
+    print('Netwon: number of iterations is:',its)
        
 def evalF(x): 
 

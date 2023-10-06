@@ -16,9 +16,9 @@ def driver():
       [xstar,ier,its] =  fixedptHighD(x0,tol,Nmax)
     elapsed = time.time()-t
     print(xstar)
-    print('inter','Newton: the error message reads:',ier)
-    print('real','Newton: took this many seconds:',elapsed/50)
-    print('inter','Netwon: number of iterations is:',its)
+    print('the error message reads:',ier)
+    print('took this many seconds:',elapsed/50)
+    print('number of iterations is:',its)
        
 def evalF(x): 
 
