@@ -6,160 +6,75 @@ from numpy.linalg import norm
 
 def driver():
 
-    x0 = np.array([0.1, 0.1, -0.1])
+    x0 = np.array([1.0, 0.0])
     
     Nmax = 100
     tol = 1e-10
-    
+    tol2 = 1e-4
+
     t = time.time()
     for j in range(50):
-      [xstar,ier,its] =  Newton(x0,tol,Nmax)
+      [xstar,ier,its, NumJ] =  SlackerNewton(x0,tol,tol2,Nmax)
     elapsed = time.time()-t
     print(xstar)
-    print('inter','Newton: the error message reads:',ier)
-    
-    print('real','Newton: took this many seconds:',elapsed/50)
-    
-    print('inter','Netwon: number of iterations is:',its)
-     
-    t = time.time()
-    for j in range(20):
-      [xstar,ier,its] =  LazyNewton(x0,tol,Nmax)
-    elapsed = time.time()-t
-    print(xstar)
-    print('inter','Lazy Newton: the error message reads:',ier)
-    print('real','Lazy Newton: took this many seconds:',elapsed/20)
-    print('inter','Lazy Newton: number of iterations is:',its)
-    
-     
-    t = time.time()
-    for j in range(20):
-      [xstar,ier,its] = Broyden(x0, tol,Nmax)     
-    elapsed = time.time()-t
-    print(xstar)
-    print('inter','Broyden: the error message reads:',ier)
-    print('real','Broyden: took this many seconds:',elapsed/20)
-    print('inter','Broyden: number of iterations is:',its)
-     
+    print('Slacker Newton: the error message reads:',ier)
+    print('Slacker Newton: took this many seconds:',elapsed/50)
+    print('Slacker Netwon: number of iterations is:',its)
+    print('Slacker Newton: Number of Jacobians taken:', NumJ)
+
 def evalF(x): 
 
-    F = np.zeros(3)
+    F = np.zeros(2)
     
-    F[0] = 3*x[0]-math.cos(x[1]*x[2])-1/2
-    F[1] = x[0]-81*(x[1]+0.1)**2+math.sin(x[2])+1.06
-    F[2] = np.exp(-x[0]*x[1])+20*x[2]+(10*math.pi-3)/3
+    F[0] = 4*(x[0])**2 + (x[1])**2 - 4
+    F[1] = x[0] + x[1] - np.sin(x[0]-x[1])
+    
     return F
-    
-def evalJ(x): 
 
+def evalJ(x): 
     
-    J = np.array([[3.0, x[2]*math.sin(x[1]*x[2]), x[1]*math.sin(x[1]*x[2])], 
-        [2.*x[0], -162.*(x[1]+0.1), math.cos(x[2])], 
-        [-x[1]*np.exp(-x[0]*x[1]), -x[0]*np.exp(-x[0]*x[1]), 20]])
+    J = np.array([[8*x[0], 2*x[1]], 
+                  [1 - np.cos(x[0]-x[1]), 1 + np.cos(x[0]-x[1])]])
     return J
 
-
-def Newton(x0,tol,Nmax):
-
-    ''' inputs: x0 = initial guess, tol = tolerance, Nmax = max its'''
-    ''' Outputs: xstar= approx root, ier = error message, its = num its'''
-
-    for its in range(Nmax):
-       J = evalJ(x0)
-       Jinv = inv(J)
-       F = evalF(x0)
-       
-       x1 = x0 - Jinv.dot(F)
-       
-       if (norm(x1-x0) < tol):
-           xstar = x1
-           ier =0
-           return[xstar, ier, its]
-           
-       x0 = x1
+def SlackerNewton(x0,tol,tol2,Nmax):
     
-    xstar = x1
-    ier = 1
-    return[xstar,ier,its]
-           
-def LazyNewton(x0,tol,Nmax):
-
-    ''' Lazy Newton = use only the inverse of the Jacobian for initial guess'''
-    ''' inputs: x0 = initial guess, tol = tolerance, Nmax = max its'''
+    ''' The goal of Slacker Newton Method is to take Jacobians until the differnce between iterates satisfies a
+        certain tolerance. Once this tolerance is satisfied, the program uses Lazy Newton'''
+    
+    ''' inputs: x0 = initial guess, tol = tolerance to stop iterating, tol2 = tolerance to keep taking Jacobians, 
+        Nmax = max iterations'''
+    
     ''' Outputs: xstar= approx root, ier = error message, its = num its'''
 
     J = evalJ(x0)
     Jinv = inv(J)
+    # Number of Jacobians taken
+    NumJ = 1
+    
     for its in range(Nmax):
-
+       
        F = evalF(x0)
        x1 = x0 - Jinv.dot(F)
        
+       # Check if the distance between x1 and x0 is larger than the tolerance set
+       # This will continue to evaluate with every iteration until the condition is satisfied
+       if (norm(x1-x0) > tol2):
+         J = evalJ(x0)
+         Jinv = inv(J)
+         NumJ +=1
+
        if (norm(x1-x0) < tol):
            xstar = x1
            ier =0
-           return[xstar, ier,its]
+           return[xstar, ier, its, NumJ]
            
        x0 = x1
     
     xstar = x1
     ier = 1
-    return[xstar,ier,its]   
-    
-def Broyden(x0,tol,Nmax):
-    '''tol = desired accuracy
-    Nmax = max number of iterations'''
-
-    '''Sherman-Morrison 
-   (A+xy^T)^{-1} = A^{-1}-1/p*(A^{-1}xy^TA^{-1})
-    where p = 1+y^TA^{-1}Ax'''
-
-    '''In Newton
-    x_k+1 = xk -(G(x_k))^{-1}*F(x_k)'''
-
-
-    '''In Broyden 
-    x = [F(xk)-F(xk-1)-\hat{G}_k-1(xk-xk-1)
-    y = x_k-x_k-1/||x_k-x_k-1||^2'''
-
-    ''' implemented as in equation (10.16) on page 650 of text'''
-    
-    '''initialize with 1 newton step'''
-    
-    A0 = evalJ(x0)
-
-    v = evalF(x0)
-    A = np.linalg.inv(A0)
-
-    s = -A.dot(v)
-    xk = x0+s
-    for  its in range(Nmax):
-       '''(save v from previous step)'''
-       w = v
-       ''' create new v'''
-       v = evalF(xk)
-       '''y_k = F(xk)-F(xk-1)'''
-       y = v-w;                   
-       '''-A_{k-1}^{-1}y_k'''
-       z = -A.dot(y)
-       ''' p = s_k^tA_{k-1}^{-1}y_k'''
-       p = -np.dot(s,z)                 
-       u = np.dot(s,A) 
-       ''' A = A_k^{-1} via Morrison formula'''
-       tmp = s+z
-       tmp2 = np.outer(tmp,u)
-       A = A+1./p*tmp2
-       ''' -A_k^{-1}F(x_k)'''
-       s = -A.dot(v)
-       xk = xk+s
-       if (norm(s)<tol):
-          alpha = xk
-          ier = 0
-          return[alpha,ier,its]
-    alpha = xk
-    ier = 1
-    return[alpha,ier,its]
-     
+    return[xstar,ier,its, NumJ]
+                
         
 if __name__ == '__main__':
     # run the drivers only if this is called from the command line
