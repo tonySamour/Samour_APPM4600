@@ -9,7 +9,7 @@ def driver():
     x0 = np.array([0, 0, 0])
     
     Nmax = 100
-    tol = 10e-6
+    tol = 10**(-6)
     
     t = time.time()
     for j in range(50):

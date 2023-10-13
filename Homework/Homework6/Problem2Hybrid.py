@@ -1,8 +1,8 @@
 #libraries:
 import matplotlib.pyplot as plt
 import numpy as np
-import math
 import time
+import math
 from numpy.linalg import inv 
 from numpy.linalg import norm
 
@@ -12,16 +12,23 @@ def driver():
     Nmax = 100
     x0= np.array([0,0,0])
     tol = 10**(-6)
+    tol2 = 5e-2
     
-
+    '''
+    [xstar,gval,ier] = SteepestDescent(x0,tol2,Nmax)
+    print("the steepest descent code found the solution ",xstar)
+    print("g evaluated at this point is ", gval)
+    print("ier is ", ier	)'''
+    
     t = time.time()
     for j in range(50):
-      [xstar,gval,ier] = SteepestDescent(x0,tol,Nmax)
+      [xstar,gval,ier] = SteepestDescent(x0,tol2,Nmax)
+      [xstar2,ier,its] =  Newton(xstar,tol,Nmax)
     elapsed = time.time()-t
-    print(xstar)
-    print('Steep: the error message reads:',ier) 
-    print('Steep: took this many seconds:',elapsed/50)
-    print("g evaluated at this point is ", gval)
+    print(xstar2)
+    print('Hybrid: the error message reads:',ier) 
+    print('Hybrid: took this many seconds:',elapsed/50)
+    print('Netwon: number of iterations is:',its)
 
 ###########################################################
 #functions:
@@ -116,6 +123,29 @@ def SteepestDescent(x,tol,Nmax):
     ier = 1        
     return [x,g1,ier]
 
+# Newton's Method Code
+def Newton(x0,tol,Nmax):
+
+    ''' inputs: x0 = initial guess, tol = tolerance, Nmax = max its'''
+    ''' Outputs: xstar= approx root, ier = error message, its = num its'''
+
+    for its in range(Nmax):
+       J = evalJ(x0)
+       Jinv = inv(J)
+       F = evalF(x0)
+       
+       x1 = x0 - Jinv.dot(F)
+       
+       if (norm(x1-x0) < tol):
+           xstar = x1
+           ier =0
+           return[xstar, ier, its]
+           
+       x0 = x1
+    
+    xstar = x1
+    ier = 1
+    return[xstar,ier,its]
 
 
 if __name__ == '__main__':
