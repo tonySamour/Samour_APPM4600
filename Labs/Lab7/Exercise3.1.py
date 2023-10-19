@@ -1,13 +1,14 @@
 import numpy as np
 import numpy.linalg as la
 import matplotlib.pyplot as plt
+from numpy.linalg import inv
 
 def driver():
 
 
     f = lambda x: 1/(1+(10*x)**2)
 
-    N = 19
+    N = 3
     ''' interval'''
     a = -1
     b = 1
@@ -40,14 +41,19 @@ def driver():
     for kk in range(Neval+1):
        yeval_l[kk] = eval_lagrange(xeval[kk],xint,yint,N)
        yeval_dd[kk] = evalDDpoly(xeval[kk],xint,y,N)
-          
-
-    
 
 
     ''' create vector with exact values'''
     fex = f(xeval)
-       
+           
+    ''' evaluate monomial coefficients '''
+    Vand, aeval = evalMonomial (xeval,fex)
+    print(Vand)
+    print(aeval)
+
+    
+
+
 
     plt.figure()    
     plt.plot(xeval,fex,'ro-')
@@ -66,17 +72,15 @@ def driver():
 # I could not figure out how to get the monomial mathod working
 # but I included what I tried so you could see my thought process
 
-'''def evalMonomial(xeval, fex, N):
-   count = 0
+def evalMonomial(xeval, fex):
+   N = len(xeval)
    V = np.empty(shape = (N,N))
-   while (count < N+1):
-      xelement = (xeval[count])**count
-      V = np.append(V[0], xelement, axis =1)
-      count = count + 1
-      return V
-   Vinv = inv(V)
-   aeval = Vinv*fex
-   return V, aeval'''
+   for r in range (0, N):
+      for c in range (0,N):
+         V[r][c] = xeval[r]**c
+
+   aeval = inv(V)*fex
+   return V, aeval
 
 # Then I would call the evalMonomial in the driver like the other methods
 
