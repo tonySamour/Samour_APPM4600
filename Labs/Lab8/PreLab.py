@@ -19,17 +19,13 @@ def findx(xeval, xint):
     return temp
     
 
-def createLine(f, intervals):
-   feval = f(intervals)
-   slope = np.zeros(len(intervals), len(intervals[0]))
-   for i in range(0,len(intervals)):
-        for j in range(1, len(intervals)):
-            slope[i][j-1] = (feval[i][j-1] - feval[i][j])/(intervals[i][j-1] - intervals[i][j])
-        slope[i][-1] = (feval[i][-1] - feval[i][-2])/(intervals[i][-1] - intervals[i][-2])
-    
-    y - feval = slope*(x-intervals)
-   
-   return slope
-
+def createLine(x, yeval, f):
+   y = np.zeros((len(x), len(x[0])))
+   for i in range(0,len(x)):
+        for j in range(1, len(x)):
+             slope = (yeval[i][j] - yeval[i][j-1])/(x[i][j] - x[i][j-1])
+             y[i][j] = slope*(x[i][j] - x[i][j-1]) + yeval[i][j-1]
+        return y
+   return y
 
 driver()
