@@ -50,7 +50,7 @@ def lgwt(N,a,b):
     y0 = y
     y = y0-L[:,N2-1]/lp
     
-    
+  
   
   # Linear map from[-1,1] to [a,b]
   x=(a*(1-y)+b*(1+y))/2
