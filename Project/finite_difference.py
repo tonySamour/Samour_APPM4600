@@ -26,4 +26,7 @@ def driver():
     b[1:-1] = -9.8*h**2
     b[-1] = 50
 
+    print(A)
+    print(b)
+
 driver()
